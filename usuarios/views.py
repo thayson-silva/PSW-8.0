@@ -24,9 +24,10 @@ def cadastro(request):
             messages.add_message(request, constants.ERROR, 'As senhas não coincidem')
             return redirect('/usuarios/cadastro')
         
-        # if User.objects.get(username = username):
-        #     print("existe")
-        # print(User.objects.filter('first_name' == primeiro_nome)
+        if User.objects.get(username = username):
+            messages.add_message(request, constants.ERROR, 'Username já existente')
+            return redirect('/usuarios/cadastro')
+              
         try:
             user = User.objects.create_user(
                 first_name = primeiro_nome,
